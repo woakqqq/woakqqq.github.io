@@ -1,0 +1,116 @@
+<div class="settings-main">
+  <div class="settings-content">
+    <h3>Desktop Settings</h3>
+    <div class="background-settings">
+      <div class="color-section">
+        <h4>Background Color</h4>
+        <input type="color" id="background-color" value="#008080" class="settings-input">
+        <button class="apply-btn" onclick="applyBackgroundColor()">Apply Color</button>
+      </div>
+      
+      <div class="image-section">
+        <h4>Background Image</h4>
+        <input type="file" accept="image/*" id="background-image" class="file-input">
+        <div class="file-input-note">
+          Recommended size: 1920x1080 or larger
+        </div>
+        <button class="apply-btn" onclick="applyBackgroundImage()">Apply Image</button>
+      </div>
+      
+      <div class="preset-section">
+        <h4>Preset Wallpapers</h4>
+        <div class="wallpaper-grid">
+          <div class="wallpaper-option" style="background: #008080" onclick="applyPresetWallpaper('#008080')">
+            <span>Classic Teal</span>
+          </div>
+          <div class="wallpaper-option" style="background: #000080" onclick="applyPresetWallpaper('#000080')">
+            <span>Navy Blue</span>
+          </div>
+          <div class="wallpaper-option" style="background: #808080" onclick="applyPresetWallpaper('#808080')">
+            <span>Classic Gray</span>
+          </div>
+          <div class="wallpaper-option" style="background: #008000" onclick="applyPresetWallpaper('#008000')">
+            <span>Forest Green</span>
+          </div>
+          <div class="wallpaper-option" style="background: #800080" onclick="applyPresetWallpaper('#800080')">
+            <span>Royal Purple</span>
+          </div>
+          <div class="wallpaper-option" style="background: #800000" onclick="applyPresetWallpaper('#800000')">
+            <span>Burgundy</span>
+          </div>
+          <div class="wallpaper-option" style="background: #FF4500" onclick="applyPresetWallpaper('#FF4500')">
+            <span>Orange Red</span>
+          </div>
+          <div class="wallpaper-option" style="background: #4B0082" onclick="applyPresetWallpaper('#4B0082')">
+            <span>Indigo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Internet Settings</h3>
+    <div class="internet-settings">
+      <div class="homepage-section">
+        <h4>Homepage</h4>
+        <input type="text" id="homepage-input" class="settings-input" placeholder="Enter homepage URL" value="https://www.google.com/webhp?igu=1">
+        <button class="apply-btn" onclick="applyHomepageChanges()">Apply Changes</button>
+      </div>
+      
+      <div class="browser-section">
+        <h4>Browser Settings</h4>
+        <div class="setting-option">
+          <label>
+            <input type="checkbox" id="show-favorites">
+            Show Favorites Bar
+          </label>
+        </div>
+        <div class="setting-option">
+          <label>
+            <input type="checkbox" id="block-popups" checked>
+            Block Pop-up Windows
+          </label>
+        </div>
+        <button class="apply-btn" onclick="applyBrowserSettings()">Apply Settings</button>
+      </div>
+    </div>
+
+    <h3>System Settings</h3>
+    <div class="system-settings">
+      <div class="display-section">
+        <h4>Display</h4>
+        <div class="setting-option">
+          <label>Screen Resolution:</label>
+          <select class="settings-input">
+            <option>640 x 480</option>
+            <option>800 x 600</option>
+            <option>1024 x 768</option>
+          </select>
+        </div>
+        <div class="setting-option">
+          <label>Color Depth:</label>
+          <select class="settings-input">
+            <option>16 Colors</option>
+            <option>256 Colors</option>
+            <option>High Color (16-bit)</option>
+          </select>
+        </div>
+        <button class="apply-btn" onclick="applyDisplaySettings()">Apply Settings</button>
+      </div>
+
+      <div class="sound-section">
+        <h4>Sound</h4>
+        <div class="setting-option">
+          <label>
+            <input type="checkbox" id="system-sounds" checked>
+            Enable System Sounds
+          </label>
+        </div>
+        <div class="setting-option">
+          <label>Volume:</label>
+          <input type="range" min="0" max="100" value="50" class="settings-input">
+        </div>
+        <button class="apply-btn" onclick="applySoundSettings()">Apply Settings</button>
+      </div>
+    </div>
+  </div>
+</div>
