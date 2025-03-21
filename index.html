@@ -17,19 +17,11 @@
         
         <div class="controls">
             <button id="addStudent">➕ 添加学生</button>
+            <input type="text" id="addStudentInput" placeholder="输入学生姓名" style="display: none;">
+            <button id="addStudentConfirm" style="display: none;">确认</button>
             <button id="saveData">💾 保存数据</button>
             <button id="loadData">📂 加载数据</button>
         </div>
-        
-        <form id="addStudentForm" class="add-student-form">
-            <div class="form-group">
-                <input type="text" id="newStudentName" placeholder="请输入学生姓名" required>
-            </div>
-            <div class="form-buttons">
-                <button type="submit">确认添加</button>
-                <button type="button" id="cancelAddStudent" class="cancel-btn">取消</button>
-            </div>
-        </form>
         
         <div class="student-list">
             <table>
