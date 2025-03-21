@@ -132,7 +132,7 @@ function addPoints(points) {
         students[studentIndex].points += points;
         renderStudentTable();
         
-        // 更高级的动画效果
+        // 显示通知
         const notification = document.createElement('div');
         notification.style.position = 'fixed';
         notification.style.top = '20px';
@@ -166,21 +166,69 @@ function addPoints(points) {
                 }, 500);
             }, 1500);
         }, 100);
+        
+        // 自动关闭评分窗口
+        closePointsModal();
     }
 }
 
 // 添加新学生
 function addNewStudent() {
-    const name = prompt('请输入学生姓名:');
-    if (name && name.trim() !== '') {
-        currentStudentId++;
-        students.push({
-            id: currentStudentId,
-            name: name.trim(),
-            points: 0
-        });
-        renderStudentTable();
-    }
+    const modal = document.createElement('div');
+    modal.classList.add('modal');
+    modal.innerHTML = `
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>添加新学生</h2>
+            <div class="input-group">
+                <label for="newStudentName">学生姓名:</label>
+                <input type="text" id="newStudentName" placeholder="请输入学生姓名">
+                <button id="confirmAddStudent">确认添加</button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    modal.style.display = 'block';
+    
+    const closeBtn = modal.querySelector('.close');
+    const input = modal.querySelector('#newStudentName');
+    const confirmBtn = modal.querySelector('#confirmAddStudent');
+    
+    const closeModal = () => {
+        modal.style.display = 'none';
+        document.body.removeChild(modal);
+    };
+    
+    closeBtn.onclick = closeModal;
+    
+    confirmBtn.onclick = () => {
+        const name = input.value.trim();
+        if (name !== '') {
+            currentStudentId++;
+            students.push({
+                id: currentStudentId,
+                name: name,
+                points: 0
+            });
+            renderStudentTable();
+            closeModal();
+        }
+    };
+    
+    input.onkeypress = (e) => {
+        if (e.key === 'Enter') {
+            confirmBtn.click();
+        }
+    };
+    
+    window.onclick = (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    };
+    
+    input.focus();
 }
 
 // 删除学生
