@@ -6,7 +6,8 @@ let currentStudentId = students.length;
 
 // DOM 元素
 const studentTable = document.getElementById('studentTable');
-const addStudentBtn = document.getElementById('addStudent');
+const addStudentForm = document.getElementById('addStudentForm');
+const newStudentName = document.getElementById('newStudentName');
 const saveDataBtn = document.getElementById('saveData');
 const loadDataBtn = document.getElementById('loadData');
 const pointsModal = document.getElementById('pointsModal');
@@ -16,7 +17,6 @@ const customPointsInput = document.getElementById('customPoints');
 const addCustomPointsBtn = document.getElementById('addCustomPoints');
 const closeModalBtn = document.querySelector('.close');
 const backgroundAnimation = document.getElementById('backgroundAnimation');
-const studentNameInput = document.getElementById('studentNameInput');
 
 let selectedStudentId = null;
 
@@ -172,17 +172,17 @@ function addPoints(points) {
 
 // 添加新学生
 function addNewStudent() {
-    const name = studentNameInput.value.trim();
-    if (name) {
+    const name = newStudentName.value.trim();
+    
+    if (name !== '') {
         currentStudentId++;
         students.push({
             id: currentStudentId,
-            name,
+            name: name,
             points: 0
         });
         renderStudentTable();
-        studentNameInput.value = '';
-        studentNameInput.focus();
+        newStudentName.value = ''; // 清空输入框
     }
 }
 
@@ -220,7 +220,11 @@ function loadData() {
 
 // 设置事件监听器
 function setupEventListeners() {
-    addStudentBtn.addEventListener('click', addNewStudent);
+    addStudentForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        addNewStudent();
+    });
+    
     saveDataBtn.addEventListener('click', saveData);
     loadDataBtn.addEventListener('click', loadData);
     
@@ -264,13 +268,6 @@ function setupEventListeners() {
     window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && pointsModal.style.display === 'block') {
             closePointsModal();
-        }
-    });
-    
-    // 回车添加学生
-    studentNameInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            addNewStudent();
         }
     });
 }

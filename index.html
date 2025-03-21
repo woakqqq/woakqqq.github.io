@@ -1,4 +1,4 @@
-<html lang="zh-cn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,11 +14,12 @@
     <div class="container">
         <h1>课堂积分评分系统</h1>
         
+        <form id="addStudentForm" class="add-student-form">
+            <input type="text" id="newStudentName" placeholder="输入学生姓名" required>
+            <button type="submit">➕ 添加学生</button>
+        </form>
+        
         <div class="controls">
-            <div class="add-student-controls">
-                <input type="text" id="studentNameInput" placeholder="输入学生姓名">
-                <button id="addStudent">➕ 添加学生</button>
-            </div>
             <button id="saveData">💾 保存数据</button>
             <button id="loadData">📂 加载数据</button>
         </div>
