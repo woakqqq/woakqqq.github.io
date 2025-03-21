@@ -12,26 +12,43 @@
 }
 
 #studentNameInput {
-    padding: 10px 15px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.2);
-    color: #333;
-    transition: all 0.3s;
-    min-width: 180px;
-    backdrop-filter: blur(5px);
+    padding: 12px 20px 12px 45px;  
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.15) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>') no-repeat 15px center/20px;
+    color: #fff;
+    font-size: 16px;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    min-width: 220px;
+}
+
+#studentNameInput::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.5px;
 }
 
 #studentNameInput:focus {
+    border-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 
+        0 0 0 3px rgba(255, 255, 255, 0.2),
+        0 6px 12px rgba(0, 0, 0, 0.15);
     outline: none;
-    border-color: #4e54c8;
-    box-shadow: 0 0 0 3px rgba(78, 84, 200, 0.1);
-    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.02);
+}
+
+#studentNameInput:focus + #addStudent {
+    transform: translateY(-1px);
 }
 
 @media (max-width: 768px) {
     .add-student-controls {
         width: 100%;
     }
+    #studentNameInput {
+        padding-left: 40px;
+        background-position: 12px center;
+    }
 }
-
