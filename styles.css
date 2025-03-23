@@ -260,6 +260,27 @@ tr:last-child {
     border-bottom: none;
 }
 
+tr td:first-child {
+    text-align: center;
+    font-size: 1.1em;
+    width: 60px;
+}
+
+tr:nth-child(1) td:first-child {
+    color: #FFD700 !important;
+    font-size: 1.3em;
+}
+
+tr:nth-child(2) td:first-child {
+    color: #C0C0C0 !important;
+    font-size: 1.2em;
+}
+
+tr:nth-child(3) td:first-child {
+    color: #CD7F32 !important;
+    font-size: 1.1em;
+}
+
 .student-controls {
     display: flex;
     gap: 10px;
@@ -358,6 +379,7 @@ tr:last-child {
     border: 1px solid rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
     transform-origin: center;
+    position: relative;
 }
 
 @keyframes modalOpen {
@@ -369,20 +391,6 @@ tr:last-child {
         transform: scale(1) translateY(0) rotate(0);
         opacity: 1;
     }
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.close:hover {
-    color: #333;
-    transform: rotate(90deg);
 }
 
 h2 {
@@ -445,6 +453,12 @@ h2 {
     padding: 15px;
     background: linear-gradient(145deg, #f5f7fa, #e9ecef);
     border-radius: 10px;
+    margin-bottom: 25px;
+}
+
+.custom-points .button-group {
+    display: flex;
+    gap: 10px;
 }
 
 .custom-points label {
@@ -469,7 +483,30 @@ h2 {
 }
 
 #addCustomPoints {
-    flex-grow: 1;
+    padding: 8px 15px;
+    font-size: 14px;
+    min-width: 80px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#closeModal {
+    padding: 12px 30px;
+    font-size: 16px;
+    min-width: 120px;
+    background: linear-gradient(145deg, #e53935, #f44336);
+    margin: 0 auto; 
+}
+
+#closeModal:hover {
+    background: linear-gradient(145deg, #f55a4e, #ff5252);
+    transform: translateY(-2px) scale(1.05);
 }
 
 /* 响应式设计 */

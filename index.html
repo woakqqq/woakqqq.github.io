@@ -4,11 +4,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>学生积分系统</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.font.im/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="frosted-glass"></div>
     <div class="background-animation" id="backgroundAnimation">
+        <!-- Dynamic circles will be generated here -->
     </div>
     
     <div class="container">
@@ -22,12 +23,14 @@
         <div class="controls">
             <button id="saveData">💾 保存数据</button>
             <button id="loadData">📂 加载数据</button>
+            <button id="sortToggle">📊 切换升序</button>
         </div>
         
         <div class="student-list">
             <table>
                 <thead>
                     <tr>
+                        <th>排名</th>
                         <th>姓名</th>
                         <th>积分</th>
                         <th>操作</th>
@@ -42,7 +45,6 @@
     
     <div id="pointsModal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
             <h2>课堂表现评分</h2>
             <div class="student-name" id="modalStudentName"></div>
             <div class="points-options">
@@ -56,7 +58,12 @@
             <div class="custom-points">
                 <label for="customPoints">自定义分数:</label>
                 <input type="number" id="customPoints" min="-10" max="10">
-                <button id="addCustomPoints">添加</button>
+                <div class="button-group">
+                    <button id="addCustomPoints">添加</button>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button id="closeModal">关闭窗口</button>
             </div>
         </div>
     </div>

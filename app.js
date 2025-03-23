@@ -17,6 +17,7 @@ const customPointsInput = document.getElementById('customPoints');
 const addCustomPointsBtn = document.getElementById('addCustomPoints');
 const closeModalBtn = document.querySelector('.close');
 const backgroundAnimation = document.getElementById('backgroundAnimation');
+let currentSortOrder = 'desc'; // 默认降序
 
 let selectedStudentId = null;
 
@@ -66,10 +67,22 @@ window.addEventListener('resize', createBackgroundAnimation);
 
 // 渲染学生表格
 function renderStudentTable() {
+    // 先对学生数组进行排序
+    const sortedStudents = [...students].sort((a, b) => {
+        return currentSortOrder === 'desc' ? b.points - a.points : a.points - b.points;
+    });
+    
     studentTable.innerHTML = '';
     
-    students.forEach(student => {
+    sortedStudents.forEach((student, index) => {
         const row = document.createElement('tr');
+        
+        // 添加排名列
+        const rankCell = document.createElement('td');
+        rankCell.textContent = index + 1;
+        rankCell.style.fontWeight = 'bold';
+        rankCell.style.color = index < 3 ? '#4e54c8' : '#666';
+        row.appendChild(rankCell);
         
         const nameCell = document.createElement('td');
         nameCell.textContent = student.name;
@@ -256,19 +269,22 @@ function setupEventListeners() {
         }
     });
     
-    // 关闭模态框
-    closeModalBtn.addEventListener('click', closePointsModal);
-    window.addEventListener('click', (e) => {
-        if (e.target === pointsModal) {
-            closePointsModal();
-        }
-    });
+    // Add new close modal button event listener
+    document.getElementById('closeModal').addEventListener('click', closePointsModal);
     
-    // 点击模态框外部关闭
+    // Keep the ESC key listener
     window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && pointsModal.style.display === 'block') {
             closePointsModal();
         }
+    });
+    
+    // 添加排序按钮点击事件
+    const sortBtn = document.getElementById('sortToggle');
+    sortBtn.addEventListener('click', () => {
+        currentSortOrder = currentSortOrder === 'desc' ? 'asc' : 'desc';
+        sortBtn.textContent = currentSortOrder === 'desc' ? '📊 切换升序' : '📊 切换降序';
+        renderStudentTable();
     });
 }
 
