@@ -24,21 +24,8 @@ let currentSortOrder = 'desc'; // 默认降序
 
 let selectedStudentId = null;
 
-// 添加主题初始化函数
-function initTheme() {
-    // Check if the browser supports dark mode detection
-    if (window.matchMedia) {
-        // Add listener for theme changes
-        window.matchMedia('(prefers-color-scheme: dark)').addListener((e) => {
-            // Recreate background animation with appropriate colors
-            createBackgroundAnimation();
-        });
-    }
-}
-
 // 初始化
 function init() {
-    initTheme();
     renderStudentTable();
     setupEventListeners();
     createBackgroundAnimation();
@@ -46,7 +33,6 @@ function init() {
 
 // 创建动态背景
 function createBackgroundAnimation() {
-    const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     backgroundAnimation.innerHTML = '';
     
     // Reduce number of circles for better performance
@@ -68,7 +54,7 @@ function createBackgroundAnimation() {
         // Randomize animation
         circle.style.animationDelay = `${-Math.random() * 20}s`;
         circle.style.animationDuration = `${20 + Math.random() * 10}s`;
-        circle.style.opacity = isDarkMode ? Math.random() * 0.15 + 0.05 : Math.random() * 0.3 + 0.1;
+        circle.style.opacity = Math.random() * 0.3 + 0.1;
         
         backgroundAnimation.appendChild(circle);
     }
