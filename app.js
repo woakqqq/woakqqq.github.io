@@ -67,59 +67,66 @@ window.addEventListener('resize', createBackgroundAnimation);
 
 // 渲染学生表格
 function renderStudentTable() {
-    // 先对学生数组进行排序
+    // Sort students by points
     const sortedStudents = [...students].sort((a, b) => {
         return currentSortOrder === 'desc' ? b.points - a.points : a.points - b.points;
     });
     
+    // Clear the container
     studentTable.innerHTML = '';
     
+    // Create student cards
     sortedStudents.forEach((student, index) => {
-        const row = document.createElement('tr');
+        const card = document.createElement('div');
+        card.className = 'student-card';
         
-        // 添加排名列
-        const rankCell = document.createElement('td');
-        rankCell.textContent = index + 1;
-        rankCell.style.fontWeight = 'bold';
-        rankCell.style.color = index < 3 ? '#4e54c8' : '#666';
-        row.appendChild(rankCell);
+        // Rank badge
+        const rankDiv = document.createElement('div');
+        rankDiv.className = `rank ${index < 3 ? `rank-${index + 1}` : ''}`;
+        rankDiv.textContent = index + 1;
         
-        const nameCell = document.createElement('td');
-        nameCell.textContent = student.name;
-        row.appendChild(nameCell);
+        // Student info section
+        const infoDiv = document.createElement('div');
+        infoDiv.className = 'student-info';
         
-        const pointsCell = document.createElement('td');
+        const nameSpan = document.createElement('div');
+        nameSpan.className = 'student-name';
+        nameSpan.textContent = student.name;
+        
         const pointsSpan = document.createElement('span');
-        pointsSpan.classList.add('points');
-        
-        // 根据积分值添加颜色类
+        pointsSpan.className = 'student-points';
         if (student.points > config.pointsThresholds.positive) {
             pointsSpan.classList.add('positive');
         } else if (student.points < config.pointsThresholds.negative) {
             pointsSpan.classList.add('negative');
         }
-        
         pointsSpan.textContent = student.points;
-        pointsCell.appendChild(pointsSpan);
-        row.appendChild(pointsCell);
         
-        const actionsCell = document.createElement('td');
-        actionsCell.classList.add('student-controls');
+        infoDiv.appendChild(nameSpan);
+        infoDiv.appendChild(pointsSpan);
+        
+        // Controls section
+        const controlsDiv = document.createElement('div');
+        controlsDiv.className = 'student-controls';
         
         const evaluateBtn = document.createElement('button');
         evaluateBtn.textContent = '评分';
         evaluateBtn.addEventListener('click', () => openPointsModal(student));
-        actionsCell.appendChild(evaluateBtn);
         
         const deleteBtn = document.createElement('button');
         deleteBtn.textContent = '删除';
         deleteBtn.style.backgroundColor = '#f44336';
         deleteBtn.addEventListener('click', () => deleteStudent(student.id));
-        actionsCell.appendChild(deleteBtn);
         
-        row.appendChild(actionsCell);
+        controlsDiv.appendChild(evaluateBtn);
+        controlsDiv.appendChild(deleteBtn);
         
-        studentTable.appendChild(row);
+        // Assemble the card
+        card.appendChild(rankDiv);
+        card.appendChild(infoDiv);
+        card.appendChild(controlsDiv);
+        
+        studentTable.appendChild(card);
     });
 }
 

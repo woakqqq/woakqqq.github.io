@@ -61,9 +61,9 @@ body {
 }
 
 .container {
-    max-width: 900px;
-    margin: 30px auto;
-    padding: 30px;
+    max-width: 1200px; 
+    margin: 20px auto;
+    padding: 20px;
     background-color: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(10px);
     border-radius: 15px;
@@ -130,8 +130,8 @@ h1::after {
 .controls {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 30px;
-    padding: 15px;
+    margin-bottom: 20px;
+    padding: 12px;
     background: rgba(248, 249, 250, 0.8);
     border-radius: 15px;
     backdrop-filter: blur(5px);
@@ -187,138 +187,95 @@ button:hover::after {
 }
 
 .student-list {
-    overflow-x: auto;
-    border-radius: 15px;
-    box-shadow: 
-        0 5px 15px rgba(0, 0, 0, 0.05),
-        inset 0 1px 2px rgba(255, 255, 255, 0.9);
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+    gap: 12px; 
+    margin-top: 15px;
+}
+
+.student-card {
+    aspect-ratio: 1; 
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    padding: 15px; 
+    display: flex;
+    flex-direction: column; 
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px; 
     transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.student-list:hover {
-    box-shadow: 
-        0 8px 20px rgba(0, 0, 0, 0.08),
-        inset 0 1px 2px rgba(255, 255, 255, 0.9);
+.student-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
 
-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    background: white;
-    overflow: hidden;
+.rank {
+    width: 24px; 
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 0.8em;
+    background: #f5f7fa;
 }
 
-th, td {
-    padding: 15px 20px;
-    text-align: left;
+.rank-1 {
+    background: linear-gradient(145deg, #ffd700, #ffed4a);
+    color: #fff;
 }
 
-th {
-    background: linear-gradient(145deg, #f5f7fa, #e9ecef);
-    color: #4e54c8;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 14px;
-    letter-spacing: 0.5px;
+.rank-2 {
+    background: linear-gradient(145deg, #c0c0c0, #e0e0e0);
+    color: #fff;
 }
 
-th:first-child {
-    border-top-left-radius: 10px;
+.rank-3 {
+    background: linear-gradient(145deg, #cd7f32, #dea47e);
+    color: #fff;
 }
 
-th:last-child {
-    border-top-right-radius: 10px;
-}
-
-tr:last-child td:first-child {
-    border-bottom-left-radius: 10px;
-}
-
-tr:last-child td:last-child {
-    border-bottom-right-radius: 10px;
-}
-
-tr {
-    border-bottom: 1px solid rgba(240, 240, 240, 0.5);
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    background: rgba(255, 255, 255, 0.5);
-}
-
-tr:hover {
-    background-color: rgba(248, 249, 255, 0.9);
-    transform: scale(1.01) translateX(5px);
-    box-shadow: 
-        0 5px 15px rgba(0, 0, 0, 0.05),
-        0 0 0 1px rgba(255, 255, 255, 0.2);
-}
-
-tr:last-child {
-    border-bottom: none;
-}
-
-tr td:first-child {
+.student-info {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    gap: 8px;
     text-align: center;
-    font-size: 1.1em;
-    width: 60px;
 }
 
-tr:nth-child(1) td:first-child {
-    color: #FFD700 !important;
-    font-size: 1.3em;
+.student-name {
+    font-size: 0.9em; 
+    font-weight: 500;
 }
 
-tr:nth-child(2) td:first-child {
-    color: #C0C0C0 !important;
+.student-points {
     font-size: 1.2em;
-}
-
-tr:nth-child(3) td:first-child {
-    color: #CD7F32 !important;
-    font-size: 1.1em;
+    font-weight: 600;
+    padding: 2px 6px; 
+    min-width: 50px;
+    text-align: center;
 }
 
 .student-controls {
     display: flex;
-    gap: 10px;
+    gap: 4px;
 }
 
 .student-controls button {
-    padding: 8px 12px;
-    font-size: 14px;
-}
-
-.points {
-    font-weight: 600;
-    font-size: 18px;
-    padding: 5px 10px;
-    border-radius: 20px;
-    display: inline-block;
-    min-width: 40px;
-    text-align: center;
-    transition: all 0.3s;
-}
-
-.positive {
-    color: #fff;
-    background: linear-gradient(145deg, #43a047, #66bb6a);
-    box-shadow: 0 2px 8px rgba(102, 187, 106, 0.3);
-}
-
-.negative {
-    color: #fff;
-    background: linear-gradient(145deg, #e53935, #f44336);
-    box-shadow: 0 2px 8px rgba(244, 67, 54, 0.3);
+    padding: 4px 8px;
+    font-size: 0.75em;
 }
 
 .add-student-form {
     display: flex;
     gap: 10px;
-    margin-bottom: 20px;
-    padding: 15px;
+    margin-bottom: 15px;
+    padding: 12px;
     background: rgba(248, 249, 250, 0.8);
     border-radius: 15px;
     backdrop-filter: blur(5px);
@@ -331,10 +288,10 @@ tr:nth-child(3) td:first-child {
 
 .add-student-form input {
     flex: 1;
-    padding: 10px 15px;
+    padding: 8px 12px;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
-    font-size: 16px;
+    font-size: 0.9em;
     transition: all 0.3s;
     box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
     background: rgba(255, 255, 255, 0.9);
@@ -367,14 +324,14 @@ tr:nth-child(3) td:first-child {
 .modal-content {
     background-color: rgba(255, 255, 255, 0.95);
     margin: 5% auto;
-    padding: 30px;
+    padding: 20px;
     border-radius: 20px;
     box-shadow: 
         0 15px 30px rgba(0, 0, 0, 0.2),
         0 0 0 1px rgba(255, 255, 255, 0.3),
         inset 0 1px 2px rgba(255, 255, 255, 0.9);
     width: 80%;
-    max-width: 600px;
+    max-width: 500px; 
     animation: modalOpen 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
@@ -415,14 +372,14 @@ h2 {
 .points-options {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    margin-bottom: 25px;
+    gap: 10px; 
+    margin-bottom: 20px;
 }
 
 .point-btn {
-    padding: 12px;
+    padding: 8px;
     border-radius: 10px;
-    font-size: 16px;
+    font-size: 0.9em;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -449,11 +406,11 @@ h2 {
     display: flex;
     gap: 15px;
     align-items: center;
-    margin-top: 25px;
-    padding: 15px;
+    margin-top: 20px;
+    padding: 12px;
     background: linear-gradient(145deg, #f5f7fa, #e9ecef);
     border-radius: 10px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 .custom-points .button-group {
@@ -467,11 +424,11 @@ h2 {
 }
 
 .custom-points input {
-    padding: 10px 15px;
+    padding: 8px 12px;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
-    width: 100px;
-    font-size: 16px;
+    width: 80px;
+    font-size: 0.9em;
     transition: all 0.3s;
     box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
 }
@@ -483,23 +440,22 @@ h2 {
 }
 
 #addCustomPoints {
-    padding: 8px 15px;
-    font-size: 14px;
-    min-width: 80px;
+    padding: 6px 12px;
+    font-size: 0.85em;
 }
 
 .modal-actions {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
-    padding-top: 20px;
+    margin-top: 15px;
+    padding-top: 15px;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 #closeModal {
-    padding: 12px 30px;
-    font-size: 16px;
-    min-width: 120px;
+    padding: 8px 20px;
+    font-size: 0.95em;
+    min-width: 100px;
     background: linear-gradient(145deg, #e53935, #f44336);
     margin: 0 auto; 
 }
@@ -511,9 +467,13 @@ h2 {
 
 /* 响应式设计 */
 @media (max-width: 768px) {
+    .student-list {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+    
     .container {
-        margin: 15px;
-        padding: 20px;
+        margin: 10px;
+        padding: 15px;
     }
     
     .points-options {
