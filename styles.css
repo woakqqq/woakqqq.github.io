@@ -1,3 +1,113 @@
+/* Add CSS variables for theme colors at the root level */
+:root {
+    --bg-gradient-light: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    --bg-gradient-dark: linear-gradient(135deg, #2d3436 0%, #000000 100%);
+    --text-color: #333;
+    --text-color-dark: #e0e0e0;
+    --card-bg: rgba(255, 255, 255, 0.85);
+    --card-bg-dark: rgba(30, 30, 30, 0.85);
+    --controls-bg: rgba(248, 249, 250, 0.8);
+    --controls-bg-dark: rgba(40, 40, 40, 0.8);
+    --border-color: rgba(255, 255, 255, 0.2);
+    --border-color-dark: rgba(255, 255, 255, 0.1);
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --shadow-color-dark: rgba(0, 0, 0, 0.3);
+    --modal-bg: rgba(255, 255, 255, 0.95);
+    --modal-bg-dark: rgba(30, 30, 30, 0.95);
+    --input-bg: rgba(255, 255, 255, 0.9);
+    --input-bg-dark: rgba(50, 50, 50, 0.9);
+    --button-gradient: linear-gradient(145deg, #4e54c8, #8f94fb);
+    --button-gradient-dark: linear-gradient(145deg, #6366f1, #4f46e5);
+}
+
+/* Add dark mode styles */
+@media (prefers-color-scheme: dark) {
+    body {
+        color: var(--text-color-dark);
+        background: var(--bg-gradient-dark);
+    }
+
+    .container {
+        background-color: var(--card-bg-dark);
+        border-color: var(--border-color-dark);
+    }
+
+    .student-card {
+        background: var(--card-bg-dark);
+        border-color: var(--border-color-dark);
+    }
+
+    .controls, .add-student-form {
+        background: var(--controls-bg-dark);
+        border-color: var(--border-color-dark);
+    }
+
+    .modal-content {
+        background-color: var(--modal-bg-dark);
+        border-color: var(--border-color-dark);
+    }
+
+    input {
+        background: var(--input-bg-dark);
+        color: var(--text-color-dark);
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .student-name {
+        color: var(--text-color-dark);
+    }
+
+    h1, h2 {
+        color: #818cf8;
+    }
+
+    .circle {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    }
+
+    .student-points {
+        color: var(--text-color-dark);
+    }
+
+    .log-entry {
+        background: var(--card-bg-dark);
+    }
+
+    .log-time {
+        color: #999;
+    }
+
+    .custom-points {
+        background: var(--controls-bg-dark);
+    }
+
+    .modal-tabs {
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .tab-btn {
+        color: #999;
+    }
+
+    .tab-btn.active {
+        background: var(--button-gradient-dark);
+    }
+
+    button {
+        background: var(--button-gradient-dark);
+    }
+
+    button:hover {
+        background: linear-gradient(145deg, #7c3aed, #6d28d9);
+    }
+
+    .score-logs {
+        background: var(--controls-bg-dark);
+        border-color: var(--border-color-dark);
+    }
+}
+
+/* Update existing styles to use CSS variables */
 * {
     margin: 0;
     padding: 0;
@@ -6,12 +116,12 @@
 }
 
 body {
-    color: #333;
+    color: var(--text-color);
     min-height: 100vh;
     padding: 20px 0;
     position: relative;
     overflow-x: hidden;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background: var(--bg-gradient-light);
 }
 
 .background-animation {
@@ -69,18 +179,18 @@ body {
     max-width: 1200px; 
     margin: 20px auto;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color: var(--card-bg);
     backdrop-filter: blur(10px);
     border-radius: 15px;
     box-shadow: 
-        0 10px 30px rgba(0, 0, 0, 0.1),
+        0 10px 30px var(--shadow-color),
         inset 0 1px 2px rgba(255, 255, 255, 0.9),
-        0 0 0 1px rgba(255, 255, 255, 0.2);
+        0 0 0 1px var(--border-color);
     transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
                 box-shadow 0.4s ease;
     position: relative;
     z-index: 1;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--border-color);
     overflow: hidden;
 }
 
@@ -103,9 +213,9 @@ body {
 .container:hover {
     transform: translateY(-5px);
     box-shadow: 
-        0 20px 40px rgba(0, 0, 0, 0.15),
+        0 20px 40px var(--shadow-color),
         inset 0 1px 2px rgba(255, 255, 255, 0.9),
-        0 0 0 1px rgba(255, 255, 255, 0.3);
+        0 0 0 1px var(--border-color);
 }
 
 .container:hover::before {
@@ -138,18 +248,18 @@ h1::after {
     justify-content: space-between;
     margin-bottom: 20px;
     padding: 12px;
-    background: rgba(248, 249, 250, 0.8);
+    background: var(--controls-bg);
     border-radius: 15px;
     backdrop-filter: blur(5px);
     box-shadow: 
-        0 5px 15px rgba(0, 0, 0, 0.05),
+        0 5px 15px var(--shadow-color),
         inset 0 1px 2px rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--border-color);
     transition: all 0.3s ease;
 }
 
 .controls:hover {
-    background: rgba(248, 249, 250, 0.9);
+    background: var(--controls-bg);
     transform: translateY(-2px);
 }
 
@@ -157,7 +267,7 @@ button {
     padding: 10px 18px;
     border: none;
     border-radius: 12px;
-    background: linear-gradient(145deg, #4e54c8, #8f94fb);
+    background: var(--button-gradient);
     color: white;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -201,7 +311,7 @@ button:hover::after {
 
 .student-card {
     aspect-ratio: 1; 
-    background: rgba(255, 255, 255, 0.9);
+    background: var(--card-bg);
     border-radius: 12px;
     padding: 12px; 
     display: flex;
@@ -210,13 +320,13 @@ button:hover::after {
     align-items: center;
     gap: 6px; 
     transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 6px var(--shadow-color);
 }
 
 .student-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 15px var(--shadow-color);
 }
 
 .rank {
@@ -283,13 +393,13 @@ button:hover::after {
     gap: 10px;
     margin-bottom: 15px;
     padding: 12px;
-    background: rgba(248, 249, 250, 0.8);
+    background: var(--controls-bg);
     border-radius: 15px;
     backdrop-filter: blur(5px);
     box-shadow: 
-        0 5px 15px rgba(0, 0, 0, 0.05),
+        0 5px 15px var(--shadow-color),
         inset 0 1px 2px rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--border-color);
     transition: all 0.3s ease;
 }
 
@@ -301,7 +411,7 @@ button:hover::after {
     font-size: 0.9em;
     transition: all 0.3s;
     box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
-    background: rgba(255, 255, 255, 0.9);
+    background: var(--input-bg);
 }
 
 .add-student-form input:focus {
@@ -329,18 +439,18 @@ button:hover::after {
 }
 
 .modal-content {
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: var(--modal-bg);
     margin: 5% auto;
     padding: 20px;
     border-radius: 20px;
     box-shadow: 
-        0 15px 30px rgba(0, 0, 0, 0.2),
-        0 0 0 1px rgba(255, 255, 255, 0.3),
+        0 15px 30px var(--shadow-color),
+        0 0 0 1px var(--border-color),
         inset 0 1px 2px rgba(255, 255, 255, 0.9);
     width: 80%;
     max-width: 600px; 
     animation: modalOpen 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--border-color);
     backdrop-filter: blur(10px);
     transform-origin: center;
     position: relative;
@@ -392,11 +502,11 @@ h2 {
     justify-content: center;
     transition: all 0.3s;
     font-weight: 500; 
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+    box-shadow: 0 4px 8px var(--shadow-color); 
 }
 
 .point-btn:not(.negative) {
-    background: linear-gradient(145deg, #4e54c8, #8f94fb);
+    background: var(--button-gradient);
 }
 
 .point-btn:not(.negative):hover {
@@ -413,7 +523,7 @@ h2 {
 
 .point-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    box-shadow: 0 6px 12px var(--shadow-color);
 }
 
 .custom-points {
@@ -445,6 +555,7 @@ h2 {
     font-size: 0.9em;
     transition: all 0.3s;
     box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+    background: var(--input-bg);
 }
 
 .custom-points input:focus {
@@ -463,7 +574,7 @@ h2 {
     justify-content: center;
     margin-top: 15px;
     padding-top: 15px;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-top: 1px solid var(--border-color);
 }
 
 #closeModal {
@@ -483,7 +594,7 @@ h2 {
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
-    border-bottom: 2px solid rgba(0,0,0,0.1);
+    border-bottom: 2px solid var(--border-color);
     padding-bottom: 10px;
 }
 
@@ -500,9 +611,9 @@ h2 {
 }
 
 .tab-btn.active {
-    background: linear-gradient(145deg, #4e54c8, #8f94fb);
+    background: var(--button-gradient);
     color: white;
-    box-shadow: 0 2px 6px rgba(78, 84, 200, 0.2);
+    box-shadow: 0 2px 6px var(--shadow-color);
 }
 
 .modal-tab-content {
@@ -526,9 +637,9 @@ h2 {
     max-height: 400px;
     overflow-y: auto;
     padding: 10px;
-    background: rgba(248, 249, 250, 0.8);
+    background: var(--controls-bg);
     border-radius: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-color);
 }
 
 .log-entry {
@@ -539,7 +650,7 @@ h2 {
     margin: 4px 0;
     background: white;
     border-radius: 6px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 3px var(--shadow-color);
 }
 
 .log-entry:last-child {
@@ -586,7 +697,7 @@ h2 {
 .logs-section {
     margin-top: 20px;
     padding-top: 15px;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-top: 1px solid var(--border-color);
 }
 
 .logs-section h3 {
