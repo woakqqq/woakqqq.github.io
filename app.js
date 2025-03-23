@@ -1,7 +1,10 @@
 import { config } from './config.js';
 
 // 学生数据
-let students = [...config.defaultStudents];
+let students = [...config.defaultStudents.map(student => ({
+    ...student,
+    logs: []  // 添加日志数组
+}))];
 let currentStudentId = students.length;
 
 // DOM 元素
@@ -30,33 +33,28 @@ function init() {
 
 // 创建动态背景
 function createBackgroundAnimation() {
-    // 清除现有圆形
     backgroundAnimation.innerHTML = '';
     
-    // 创建多个不同大小、位置的圆形
-    const circleCount = window.innerWidth < 768 ? 8 : 15;
+    // Reduce number of circles for better performance
+    const circleCount = window.innerWidth < 768 ? 5 : 8;
     
     for (let i = 0; i < circleCount; i++) {
         const circle = document.createElement('div');
         circle.classList.add('circle');
         
-        // 随机大小
-        const size = Math.random() * 200 + 50;
+        // Larger, more spaced out circles
+        const size = Math.random() * 300 + 100;
         circle.style.width = `${size}px`;
         circle.style.height = `${size}px`;
         
-        // 随机位置
-        circle.style.left = `${Math.random() * 100}%`;
+        // Ensure better distribution
+        circle.style.left = `${(i * (100 / circleCount)) + (Math.random() * 20 - 10)}%`;
         circle.style.top = `${Math.random() * 100}%`;
         
-        // 随机动画延迟
-        circle.style.animationDelay = `${Math.random() * 5}s`;
-        
-        // 随机动画持续时间
-        circle.style.animationDuration = `${Math.random() * 10 + 15}s`;
-        
-        // 随机透明度
-        circle.style.opacity = Math.random() * 0.5 + 0.1;
+        // Randomize animation
+        circle.style.animationDelay = `${-Math.random() * 20}s`;
+        circle.style.animationDuration = `${20 + Math.random() * 10}s`;
+        circle.style.opacity = Math.random() * 0.3 + 0.1;
         
         backgroundAnimation.appendChild(circle);
     }
@@ -72,20 +70,16 @@ function renderStudentTable() {
         return currentSortOrder === 'desc' ? b.points - a.points : a.points - b.points;
     });
     
-    // Clear the container
     studentTable.innerHTML = '';
     
-    // Create student cards
     sortedStudents.forEach((student, index) => {
         const card = document.createElement('div');
         card.className = 'student-card';
         
-        // Rank badge
         const rankDiv = document.createElement('div');
         rankDiv.className = `rank ${index < 3 ? `rank-${index + 1}` : ''}`;
         rankDiv.textContent = index + 1;
         
-        // Student info section
         const infoDiv = document.createElement('div');
         infoDiv.className = 'student-info';
         
@@ -105,7 +99,6 @@ function renderStudentTable() {
         infoDiv.appendChild(nameSpan);
         infoDiv.appendChild(pointsSpan);
         
-        // Controls section
         const controlsDiv = document.createElement('div');
         controlsDiv.className = 'student-controls';
         
@@ -121,7 +114,6 @@ function renderStudentTable() {
         controlsDiv.appendChild(evaluateBtn);
         controlsDiv.appendChild(deleteBtn);
         
-        // Assemble the card
         card.appendChild(rankDiv);
         card.appendChild(infoDiv);
         card.appendChild(controlsDiv);
@@ -134,6 +126,24 @@ function renderStudentTable() {
 function openPointsModal(student) {
     selectedStudentId = student.id;
     modalStudentName.textContent = student.name;
+    
+    // Show scoring tab by default
+    document.querySelector('[data-tab="scoring"]').classList.add('active');
+    document.querySelector('[data-tab="logs"]').classList.remove('active');
+    document.getElementById('scoringContent').classList.add('active');
+    document.getElementById('logsContent').classList.remove('active');
+    
+    // Update logs content
+    const logsContainer = document.querySelector('#logsContent .score-logs');
+    logsContainer.innerHTML = student.logs.map(log => `
+        <div class="log-entry">
+            <span class="${log.points >= 0 ? 'positive' : 'negative'}">
+                ${log.points >= 0 ? '+' : ''}${log.points}
+            </span>
+            <span class="log-time">${log.displayTime}</span>
+        </div>
+    `).join('');
+    
     pointsModal.style.display = 'block';
     customPointsInput.value = '';
 }
@@ -150,6 +160,18 @@ function addPoints(points) {
     
     const studentIndex = students.findIndex(s => s.id === selectedStudentId);
     if (studentIndex !== -1) {
+        const now = new Date();
+        const logEntry = {
+            points: points,
+            timestamp: now.toISOString(),
+            displayTime: `${now.getMonth()+1}/${now.getDate()} ${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}`
+        };
+        
+        // 添加日志记录
+        students[studentIndex].logs.unshift(logEntry);
+        // 保持最近的N条记录
+        students[studentIndex].logs = students[studentIndex].logs.slice(0, config.maxRecentLogs);
+        
         students[studentIndex].points += points;
         renderStudentTable();
         
@@ -199,7 +221,8 @@ function addNewStudent() {
         students.push({
             id: currentStudentId,
             name: name,
-            points: 0
+            points: 0,
+            logs: []
         });
         renderStudentTable();
         newStudentName.value = ''; // 清空输入框
@@ -290,8 +313,29 @@ function setupEventListeners() {
     const sortBtn = document.getElementById('sortToggle');
     sortBtn.addEventListener('click', () => {
         currentSortOrder = currentSortOrder === 'desc' ? 'asc' : 'desc';
-        sortBtn.textContent = currentSortOrder === 'desc' ? '📊 切换升序' : '📊 切换降序';
+        sortBtn.textContent = currentSortOrder === 'desc' ? '切换升序' : '切换降序';
         renderStudentTable();
+    });
+    
+    setupTabSystem();
+}
+
+// 设置选项卡系统
+function setupTabSystem() {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active class from all tabs
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.modal-tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Add active class to clicked tab
+            button.classList.add('active');
+            const tabId = button.getAttribute('data-tab');
+            document.getElementById(`${tabId}Content`).classList.add('active');
+        });
     });
 }
 

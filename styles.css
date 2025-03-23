@@ -22,6 +22,7 @@ body {
     height: 100%;
     z-index: -1;
     overflow: hidden;
+    pointer-events: none;
 }
 
 .frosted-glass {
@@ -39,24 +40,28 @@ body {
 .circle {
     position: absolute;
     border-radius: 50%;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.3) 100%);
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    animation: float 15s infinite ease-in-out;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 100%);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: float 20s infinite ease-in-out;
+    will-change: transform;
 }
 
 @keyframes float {
     0% {
-        transform: translateY(0) translateX(0) rotate(0deg);
+        transform: translate(0, 0) rotate(0deg) scale(1);
     }
-    33% {
-        transform: translateY(-50px) translateX(30px) rotate(120deg);
+    25% {
+        transform: translate(-30px, 20px) rotate(90deg) scale(1.05);
     }
-    66% {
-        transform: translateY(20px) translateX(-20px) rotate(240deg);
+    50% {
+        transform: translate(20px, -15px) rotate(180deg) scale(1);
+    }
+    75% {
+        transform: translate(-20px, -20px) rotate(270deg) scale(0.95);
     }
     100% {
-        transform: translateY(0) translateX(0) rotate(360deg);
+        transform: translate(0, 0) rotate(360deg) scale(1);
     }
 }
 
@@ -71,7 +76,8 @@ body {
         0 10px 30px rgba(0, 0, 0, 0.1),
         inset 0 1px 2px rgba(255, 255, 255, 0.9),
         0 0 0 1px rgba(255, 255, 255, 0.2);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.4s ease;
     position: relative;
     z-index: 1;
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -197,13 +203,13 @@ button:hover::after {
     aspect-ratio: 1; 
     background: rgba(255, 255, 255, 0.9);
     border-radius: 12px;
-    padding: 15px; 
+    padding: 12px; 
     display: flex;
     flex-direction: column; 
     justify-content: space-between;
     align-items: center;
-    gap: 8px; 
-    transition: all 0.3s ease;
+    gap: 6px; 
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -246,6 +252,7 @@ button:hover::after {
     align-items: center;
     gap: 8px;
     text-align: center;
+    margin: 4px 0;
 }
 
 .student-name {
@@ -331,7 +338,7 @@ button:hover::after {
         0 0 0 1px rgba(255, 255, 255, 0.3),
         inset 0 1px 2px rgba(255, 255, 255, 0.9);
     width: 80%;
-    max-width: 500px; 
+    max-width: 600px; 
     animation: modalOpen 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
@@ -470,6 +477,122 @@ h2 {
 #closeModal:hover {
     background: linear-gradient(145deg, #f55a4e, #ff5252);
     transform: translateY(-2px) scale(1.05);
+}
+
+.modal-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid rgba(0,0,0,0.1);
+    padding-bottom: 10px;
+}
+
+.tab-btn {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: #666;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.tab-btn.active {
+    background: linear-gradient(145deg, #4e54c8, #8f94fb);
+    color: white;
+    box-shadow: 0 2px 6px rgba(78, 84, 200, 0.2);
+}
+
+.modal-tab-content {
+    display: none;
+}
+
+.modal-tab-content.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.score-logs {
+    width: 100%;
+    font-size: 0.9em;
+    margin: 0;
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 10px;
+    background: rgba(248, 249, 250, 0.8);
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.log-entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 10px;
+    margin: 4px 0;
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.log-entry:last-child {
+    border-bottom: none;
+}
+
+.log-entry span {
+    font-size: 0.9em;
+}
+
+.log-entry .positive {
+    color: #4caf50;
+    font-weight: 500;
+}
+
+.log-entry .negative {
+    color: #f44336;
+    font-weight: 500;
+}
+
+.log-time {
+    color: #666;
+    font-size: 0.85em;
+}
+
+.score-logs::-webkit-scrollbar {
+    width: 4px;
+}
+
+.score-logs::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.05);
+    border-radius: 2px;
+}
+
+.score-logs::-webkit-scrollbar-thumb {
+    background: rgba(78, 84, 200, 0.3);
+    border-radius: 2px;
+}
+
+.score-logs::-webkit-scrollbar-thumb:hover {
+    background: rgba(78, 84, 200, 0.5);
+}
+
+.logs-section {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.logs-section h3 {
+    color: #4e54c8;
+    margin-bottom: 10px;
+    font-size: 1.1em;
 }
 
 /* 响应式设计 */

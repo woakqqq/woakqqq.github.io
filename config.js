@@ -31,5 +31,11 @@ export const config = {
     },
     
     // 本地存储键名
-    storageKey: "classroomPoints"
+    storageKey: "classroomPoints",
+    
+    // 积分记录保存键名
+    scoreLogKey: "scoreLog",
+    
+    // 每个学生最多显示的最近记录数
+    maxRecentLogs: 5
 };

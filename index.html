@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="zh-cn">
 <head>
     <meta charset="UTF-8">
@@ -34,21 +35,36 @@
         <div class="modal-content">
             <h2>课堂表现评分</h2>
             <div class="student-name" id="modalStudentName"></div>
-            <div class="points-options">
-                <button class="point-btn" data-value="1">回答问题 +1</button>
-                <button class="point-btn" data-value="2">积极参与 +2</button>
-                <button class="point-btn" data-value="3">帮助同学 +3</button>
-                <button class="point-btn" data-value="5">优秀表现 +5</button>
-                <button class="point-btn negative" data-value="-1">注意力不集中 -1</button>
-                <button class="point-btn negative" data-value="-2">扰乱秩序 -2</button>
+            
+            <div class="modal-tabs">
+                <button class="tab-btn active" data-tab="scoring">评分</button>
+                <button class="tab-btn" data-tab="logs">记录</button>
             </div>
-            <div class="custom-points">
-                <label for="customPoints">自定义分数:</label>
-                <input type="number" id="customPoints" min="-10" max="10">
-                <div class="button-group">
-                    <button id="addCustomPoints">添加</button>
+            
+            <div id="scoringContent" class="modal-tab-content active">
+                <div class="points-options">
+                    <button class="point-btn" data-value="1">回答问题 +1</button>
+                    <button class="point-btn" data-value="2">积极参与 +2</button>
+                    <button class="point-btn" data-value="3">帮助同学 +3</button>
+                    <button class="point-btn" data-value="5">优秀表现 +5</button>
+                    <button class="point-btn negative" data-value="-1">注意力不集中 -1</button>
+                    <button class="point-btn negative" data-value="-2">扰乱秩序 -2</button>
+                </div>
+                <div class="custom-points">
+                    <label for="customPoints">自定义分数:</label>
+                    <input type="number" id="customPoints" min="-10" max="10">
+                    <div class="button-group">
+                        <button id="addCustomPoints">添加</button>
+                    </div>
                 </div>
             </div>
+            
+            <div id="logsContent" class="modal-tab-content">
+                <div class="score-logs">
+                    <!-- Logs will be populated dynamically -->
+                </div>
+            </div>
+            
             <div class="modal-actions">
                 <button id="closeModal">关闭窗口</button>
             </div>
